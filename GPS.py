@@ -33,14 +33,15 @@ def loop(gps):
 		stringAllLine = ""
 		while timeout_t > 0:
 			if gps.in_waiting > 0:
-				stringAllLine = stringAllLine + gps.read()
+				stringAllLine +=  str(gps.read())[2:3]
 				timeout_t = timeout
 			else:
 				timeout_t = timeout_t - 1
 			time.sleep(0.001)
 		gpsString = stringAllLine
+		print (gpsString)
 		
-		regex = r"\$GPRMC,([0-9\.]+)?,([VA]),(([0-9.]+)([0-9]{2}\.[0-9]+))?,([NS])?,(([0-9.]+)([0-9]{2}\.[0-9]+))?,([EW])?,([0-9.]+)?,([0-9.]+)?,([0-9.]+)?,([0-9.]+)?,([0-9.]+)?,(.*)?"
+		regex = r"\$GNRMC,([0-9\.]+)?,([VA]),(([0-9.]+)([0-9]{2}\.[0-9]+))?,([NS])?,(([0-9.]+)([0-9]{2}\.[0-9]+))?,([EW])?,([0-9.]+)?,([0-9.]+)?,([0-9.]+)?,([0-9.]+)?,([0-9.]+)?,(.*)?"
 			
 		match = re.match(regex, gpsString)
 		if match:
