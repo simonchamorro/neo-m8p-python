@@ -2,6 +2,12 @@
 
 ![Ublox NEO M6 on Nano Pi NEO](https://a.lnwpic.com/56v2fw.png)
 
+## Installation
+
+Git clone this repo 
+
+And then in this directory `pip install -e .`
+
 ## How to use
 
 - Connect the NEO M8P via the serial interface to your PC (in my case I'm using a serial to USB adapter)
