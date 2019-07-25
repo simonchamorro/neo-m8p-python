@@ -3,6 +3,7 @@ from multiprocessing import Queue, Process
 import cv2
 import serial
 import pynmea2
+from pynmea2 import GGA
 
 from neom8p.gmaps import get_gmap
 
@@ -41,7 +42,7 @@ def mapdisplayer(q):
         cv2.waitKey(1)
 
 
-socket = serial.Serial(port="/dev/cu.usbserial-14210", baudrate=9600)
+socket = serial.Serial(port="/dev/cu.usbserial-14410", baudrate=9600)
 
 q_preproc = Queue()
 q_display = Queue()
@@ -61,6 +62,10 @@ while True:
         data = data.decode()
         # print(data)
         data_nmea = pynmea2.parse(data)
+
+        if hasattr(data_nmea, "gps_qual"):
+            print (f"GPS Qaulity: {data_nmea.gps_qual}, No satellites: {data_nmea.num_sats}, horz. DOP: {data_nmea.horizontal_dil}")
+
         # print (type(data_nmea), data_nmea)
         if hasattr(data_nmea, 'lat'):
             print (f"lat, lon: {data_nmea.latitude}, {data_nmea.longitude}")
